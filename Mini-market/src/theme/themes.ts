@@ -1,0 +1,81 @@
+import type { DefaultTheme } from 'styled-components';
+
+const baseTokens = {
+  radii: {
+    sm: '6px',
+    md: '10px',
+    lg: '16px',
+    full: '9999px',
+  },
+  spacing: {
+    xs: '4px',
+    sm: '8px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
+  },
+  transitions: {
+    fast: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
+    normal: '250ms cubic-bezier(0.4, 0, 0.2, 1)',
+  },
+};
+
+export const lightTheme: DefaultTheme = {
+  ...baseTokens,
+  mode: 'light',
+  colors: {
+    bgCanvas: '#f8fafc',
+    bgSurface: '#ffffff',
+    bgSurfaceHover: '#f1f5f9',
+    bgMuted: '#e2e8f0',
+    textPrimary: '#0f172a',
+    textSecondary: '#475569',
+    textMuted: '#94a3b8',
+    textInverse: '#ffffff',
+    borderDefault: '#cbd5e1',
+    borderFocus: '#2563eb',
+    primary: '#2563eb',
+    primaryHover: '#1d4ed8',
+    primarySubtle: '#dbeafe',
+    secondary: '#e2e8f0',
+    secondaryHover: '#cbd5e1',
+    danger: '#dc2626',
+    dangerHover: '#b91c1c',
+    dangerSubtle: '#fee2e2',
+    success: '#16a34a',
+    successSubtle: '#dcfce7',
+    warning: '#d97706',
+    warningSubtle: '#fef3c7',
+    shadowCard: '0 4px 12px rgba(15, 23, 42, 0.06)',
+  },
+};
+
+export const darkTheme: DefaultTheme = {
+  ...baseTokens,
+  mode: 'dark',
+  colors: {
+    bgCanvas: '#090d16',
+    bgSurface: '#131b2e',
+    bgSurfaceHover: '#1e293b',
+    bgMuted: '#283548',
+    textPrimary: '#f8fafc',
+    textSecondary: '#cbd5e1',
+    textMuted: '#64748b',
+    textInverse: '#ffffff',
+    borderDefault: '#334155',
+    borderFocus: '#3b82f6',
+    primary: '#3b82f6',
+    primaryHover: '#60a5fa',
+    primarySubtle: 'rgba(59, 130, 246, 0.18)',
+    secondary: '#1e293b',
+    secondaryHover: '#334155',
+    danger: '#ef4444',
+    dangerHover: '#f87171',
+    dangerSubtle: 'rgba(239, 68, 68, 0.18)',
+    success: '#22c55e',
+    successSubtle: 'rgba(34, 197, 94, 0.18)',
+    warning: '#f59e0b',
+    warningSubtle: 'rgba(245, 158, 11, 0.18)',
+    shadowCard: '0 6px 16px rgba(0, 0, 0, 0.35)',
+  },
+};
