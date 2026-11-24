@@ -8,6 +8,7 @@ import { Button } from './ui/Button.tsx';
 import { Card, CardBody, CardFooter, CardMedia } from './ui/Card.tsx';
 import { Grid } from './ui/Grid.tsx';
 import { Input } from './ui/Input.tsx';
+import { CartDrawer, type CartEntry } from "./components/CartDrwaer.tsx";
 
 const PageContainer = styled.div`
   max-width: 1240px;
@@ -134,6 +135,41 @@ export const App: React.FC = () => {
     }, 550);
   };
 
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const cartEntries = useMemo<CartEntry[]>(() => {
+    return PRODUCTS.filter((p) => (cart[p.id] ?? 0) > 0).map((product) => ({
+      product,
+      quantity: cart[product.id],
+    }));
+  }, [cart]);
+
+  const handleIncrement = (id: string) => {
+    setCart((prev) => ({ ...prev, [id]: (prev[id] ?? 0) + 1 }));
+  };
+
+  const handleDecrement = (id: string) => {
+    setCart((prev) => {
+      const nextQty = (prev[id] ?? 0) - 1;
+      if (nextQty <= 0) {
+        const { [id]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [id]: nextQty };
+    });
+  };
+
+  const handleRemove = (id: string) => {
+    setCart((prev) => {
+      const { [id]: _, ...rest } = prev;
+      return rest;
+    });
+  };
+
+  const handleClearCart = () => {
+    setCart({});
+  };
+
   return (
     <PageContainer>
       <Header>
@@ -142,7 +178,7 @@ export const App: React.FC = () => {
           <Button variant="outline" size="sm" onClick={toggleTheme}>
             {mode === 'light' ? 'Темная тема' : 'Светлая тема'}
           </Button>
-          <Button variant="secondary" size="sm">
+          <Button variant="secondary" size="sm" onClick={() => setIsCartOpen(true)}>
             Корзина : {totalCartItems}
           </Button>
         </HeaderActions>
@@ -219,6 +255,16 @@ export const App: React.FC = () => {
           })}
         </Grid>
       )}
+
+      <CartDrawer
+        isOpen={isCartOpen}
+        items={cartEntries}
+        onClose={() => setIsCartOpen(false)}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
+        onRemove={handleRemove}
+        onClear={handleClearCart}
+      />
     </PageContainer>
   );
 };
